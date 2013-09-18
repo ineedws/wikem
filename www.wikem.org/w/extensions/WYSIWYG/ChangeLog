@@ -1,0 +1,79 @@
+WYSIWYG extension ChangeLog
+===========================
+
+VERSION 1.4.0_3
+
+
+  FEATURES:
+
+  CHANGES:
+
+  BUGFIXES:
+    * Fix bug http://smwforum.ontoprise.com/smwbugs/show_bug.cgi?id=13511
+      Query Interface (and other tools) do not open from Wysiwyg in IE8
+
+
+
+VERSION 1.4.0_2
+
+
+  FEATURES:
+
+  CHANGES:
+
+  BUGFIXES:
+    * Fix bug http://smwforum.ontoprise.com/smwbugs/show_bug.cgi?id=13507
+      Parse error leads to empty wiki page
+    * Fix bug http://smwforum.ontoprise.com/smwbugs/show_bug.cgi?id=13523
+      Reopening a query in QI from Wysiwyg shows an empty query
+    * Fix bug http://smwforum.ontoprise.com/smwbugs/show_bug.cgi?id=13540
+      Editor changes [[]] into <a href
+    * Fix bug http://smwforum.ontoprise.com/smwbugs/show_bug.cgi?id=13591
+      Interwiki links break in WYSIWYG
+
+
+
+VERSION 1.4.0_1
+
+
+  FEATURES:
+
+  CHANGES:
+
+  BUGFIXES:
+    * Fix bug http://smwforum.ontoprise.com/smwbugs/show_bug.cgi?id=13194
+      IE 8 page error (transformation into wikitext didn't work in IE 8)
+
+
+
+VERSION 1.4.0
+
+
+  FEATURES:
+    * Update from the FCKeditor to the new CKEditor 3.4
+    * Applying changes from the official FCKeditor extension (see
+      http://www.mediawiki.org/wiki/Extension:FCKeditor_(Official) for details)
+
+  CHANGES:
+    * New installation directory is <mw_install_dir>/extensions/WYSIWYG
+
+  BUGFIXES:
+
+
+
+VERSION 1.3.2
+
+
+  FEATURES:
+
+  CHANGES:
+    * Query Interface popup has not tabs anymore because in the SMWHalo
+      extension 1.5.1 the query interface will support modifying the query
+      source directly.
+      Use this version only if you have the SMWHalo extension 1.5.1 installed.
+    * A define has been added so that other extensions may easily check whether
+      the WYSIWYG extension is available or not.
+
+  BUGFIXES:
+
+

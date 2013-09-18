@@ -1,0 +1,109 @@
+diff -Nruw -x messages -x '*.png' -x '*.jpg' -x '*.xcf' -x '*.gif' -x '*.svg' -x '*.tiff' -x '*.zip' -x '*.xmp' -x '.git*' mediawiki-1.21.0/extensions/ConfirmEdit/ReCaptcha.i18n.php mediawiki-1.21.1/extensions/ConfirmEdit/ReCaptcha.i18n.php
+--- mediawiki-1.21.0/extensions/ConfirmEdit/ReCaptcha.i18n.php	2013-05-25 10:07:17.495862189 -0400
++++ mediawiki-1.21.1/extensions/ConfirmEdit/ReCaptcha.i18n.php	2013-05-28 15:10:57.676854229 -0400
+@@ -400,12 +400,13 @@
+ );
+ 
+ /** Polish (polski)
++ * @author WTM
+  */
+ $messages['pl'] = array(
+ 	'recaptcha-edit' => 'Aby uchronić nas przed robotami, proszę wpisać dwa widoczne słowa w poniższym polu:',
+ 	'recaptcha-addurl' => 'Twoja edycja zawiera linki zewnętrzne. Aby uchronić nas przed robotami, proszę wpisać dwa widoczne słowa w poniższym polu:',
+ 	'recaptcha-badpass' => 'Aby uchronić nas przed złamaniem automatycznym haseł, proszę wpisać dwa widoczne słowa w poniższym polu:',
+-	'recaptcha-createaccount' => 'Aby uchronić nas przed automatycznym stworzeniem użytkowników, proszę wpisać dwa widoczne słowa w poniższym polu:',
++	'recaptcha-createaccount' => 'Aby uchronić nas przed automatycznym tworzeniem użytkowników, proszę wpisać dwa widoczne słowa w poniższym polu:',
+ 	'recaptcha-createaccount-fail' => 'Odpowiedź na reCAPTCHA jest fałszywa lub brakująca.',
+ 	'recaptcha-create' => 'Aby uchronić nas przed tworzeniem stron przez robotów, proszę wpisać dwa widoczne słowa w poniższym polu:',
+ );
+diff -Nruw -x messages -x '*.png' -x '*.jpg' -x '*.xcf' -x '*.gif' -x '*.svg' -x '*.tiff' -x '*.zip' -x '*.xmp' -x '.git*' mediawiki-1.21.0/extensions/ParserFunctions/ParserFunctions.i18n.magic.php mediawiki-1.21.1/extensions/ParserFunctions/ParserFunctions.i18n.magic.php
+--- mediawiki-1.21.0/extensions/ParserFunctions/ParserFunctions.i18n.magic.php	2013-05-25 10:07:31.039985343 -0400
++++ mediawiki-1.21.1/extensions/ParserFunctions/ParserFunctions.i18n.magic.php	2013-05-28 15:11:02.652896787 -0400
+@@ -96,8 +96,8 @@
+ 
+ /** Chechen (нохчийн) */
+ $magicWords['ce'] = array(
+-	'time' => array( 0, 'хан', 'time' ),
+-	'replace' => array( 0, 'хийцарна', 'замена', 'replace' ),
++	'time' => array( 0, 'хан' ),
++	'replace' => array( 0, 'хийцарна', 'замена' ),
+ );
+ 
+ /** Czech (česky) */
+diff -Nruw -x messages -x '*.png' -x '*.jpg' -x '*.xcf' -x '*.gif' -x '*.svg' -x '*.tiff' -x '*.zip' -x '*.xmp' -x '.git*' mediawiki-1.21.0/extensions/PdfHandler/PdfHandler_body.php mediawiki-1.21.1/extensions/PdfHandler/PdfHandler_body.php
+--- mediawiki-1.21.0/extensions/PdfHandler/PdfHandler_body.php	2013-05-25 10:07:33.784010290 -0400
++++ mediawiki-1.21.1/extensions/PdfHandler/PdfHandler_body.php	2013-05-28 15:11:03.552904484 -0400
+@@ -315,7 +315,7 @@
+ 	 */
+ 	function pageCount( $image ) {
+ 		$data = $this->getMetaArray( $image );
+-		if ( !$data ) {
++		if ( !$data || !isset( $data['Pages'] ) ) {
+ 			return false;
+ 		}
+ 		return intval( $data['Pages'] );
+diff -Nruw -x messages -x '*.png' -x '*.jpg' -x '*.xcf' -x '*.gif' -x '*.svg' -x '*.tiff' -x '*.zip' -x '*.xmp' -x '.git*' mediawiki-1.21.0/includes/DefaultSettings.php mediawiki-1.21.1/includes/DefaultSettings.php
+--- mediawiki-1.21.0/includes/DefaultSettings.php	2013-05-25 10:04:36.006392939 -0400
++++ mediawiki-1.21.1/includes/DefaultSettings.php	2013-05-28 17:09:09.269505113 -0400
+@@ -63,7 +63,7 @@
+  * MediaWiki version number
+  * @since 1.2
+  */
+-$wgVersion = '1.21.0rc5';
++$wgVersion = '1.21.1';
+ 
+ /**
+  * Name of the site. It must be changed in LocalSettings.php
+diff -Nruw -x messages -x '*.png' -x '*.jpg' -x '*.xcf' -x '*.gif' -x '*.svg' -x '*.tiff' -x '*.zip' -x '*.xmp' -x '.git*' mediawiki-1.21.0/maintenance/oracle/tables.sql mediawiki-1.21.1/maintenance/oracle/tables.sql
+--- mediawiki-1.21.0/maintenance/oracle/tables.sql	2013-05-25 10:04:36.458397053 -0400
++++ mediawiki-1.21.1/maintenance/oracle/tables.sql	2013-05-28 09:19:38.368574123 -0400
+@@ -529,12 +529,12 @@
+   job_namespace  NUMBER  DEFAULT 0 NOT NULL,
+   job_title      VARCHAR2(255)      NOT NULL,
+   job_timestamp	 TIMESTAMP(6) WITH TIME ZONE NULL,
+-  job_params     CLOB      NOT NULL
+-  job_random NUMBER NOT NULL default 0,
++  job_params     CLOB      NOT NULL,
++  job_random NUMBER DEFAULT 0 NOT NULL,
+   job_token VARCHAR2(32),
+   job_token_timestamp TIMESTAMP(6) WITH TIME ZONE,
+   job_sha1 VARCHAR2(32),
+-  job_attempts NUMBER NOT NULL default 0
++  job_attempts NUMBER DEFAULT 0 NOT NULL
+ );
+ ALTER TABLE &mw_prefix.job ADD CONSTRAINT &mw_prefix.job_pk PRIMARY KEY (job_id);
+ CREATE INDEX &mw_prefix.job_i01 ON &mw_prefix.job (job_cmd, job_namespace, job_title);
+@@ -710,7 +710,7 @@
+   si_type VARCHAR2(32) NOT NULL,
+   si_key VARCHAR2(32) NOT NULL
+ );
+-CREATE UNIQUE INDEX &mw_prefix.site_identifiers_u01 ON &mw_prefix.sites (si_type, si_key);
++CREATE UNIQUE INDEX &mw_prefix.site_identifiers_u01 ON &mw_prefix.site_identifiers (si_type, si_key);
+ CREATE INDEX &mw_prefix.site_identifiers_i01 ON &mw_prefix.site_identifiers (si_site);
+ CREATE INDEX &mw_prefix.site_identifiers_i02 ON &mw_prefix.site_identifiers (si_key);
+ 
+diff -Nruw -x messages -x '*.png' -x '*.jpg' -x '*.xcf' -x '*.gif' -x '*.svg' -x '*.tiff' -x '*.zip' -x '*.xmp' -x '.git*' mediawiki-1.21.0/RELEASE-NOTES-1.21 mediawiki-1.21.1/RELEASE-NOTES-1.21
+--- mediawiki-1.21.0/RELEASE-NOTES-1.21	2013-05-25 10:04:36.002392902 -0400
++++ mediawiki-1.21.1/RELEASE-NOTES-1.21	2013-05-28 17:17:05.777580451 -0400
+@@ -1,10 +1,20 @@
++= MediaWiki release notes =
++
+ Security reminder: MediaWiki does not require PHP's register_globals. If you
+ have it on, turn it '''off''' if you can.
+ 
+-== MediaWiki 1.21 ==
++== MediaWiki 1.21.1 ==
++
++This is a maintenance release of the 1.21 branch.
+ 
+ MediaWiki 1.21 is an stable branch and is recommended for use in production.
+ 
++=== Changes since 1.21.0 ===
++
++* An incorrect version number was used for 1.21.0.  1.21.1 has the correct number.
++* A problem with the Oracle SQL table creation was fixed.
++* (PdfHandler extension) Fix warning if pdfinfo fails but pdftext succeeds.
++
+ === Configuration changes in 1.21 ===
+ * (bug 48306) $wgAllowChunkedUploads has been added and is false by default.
+ * (bug 29374) $wgVectorUseSimpleSearch is now enabled by default.
