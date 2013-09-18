@@ -1,8 +1,0 @@
-*** Placeholder Changelog ***
-
-2011.01.21 - version 1.0.1
- * index.php - added option to enable/disable RSS
- * includes/theme-options.php - removed default options in social so they can be disabled. Added enable/disable RSS option.
-	
-2011.01.19 - version 1.0
- * First release!

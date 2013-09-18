@@ -1,6 +1,0 @@
-User-agent: *
-Disallow: /wiki/Special:
-Disallow: /cache/
-Disallow: /skins/
-
-Sitemap: http://www.wikem.org/w/sitemap.xml
